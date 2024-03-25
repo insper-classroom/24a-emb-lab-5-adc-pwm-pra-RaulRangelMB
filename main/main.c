@@ -23,10 +23,9 @@ void x_task(void *p) {
     adc_init();
     adc_gpio_init(27);
 
-    int result;
     while (1) {
         adc_select_input(1);
-        result = (adc_read() - 2048)/8;
+        int result = (adc_read() - 2048)/8;
         if (abs(result) > DEADZONE){
            adc_t data = {0, result};
            xQueueSend(xQueueAdc, &data, portMAX_DELAY);
@@ -44,10 +43,9 @@ void y_task(void *p) {
     adc_init();
     adc_gpio_init(26);
 
-    int result;
     while (1) {
         adc_select_input(0);
-        result = (adc_read() - 2048)/8;
+        int result = (adc_read() - 2048)/8;
         if (abs(result) > DEADZONE){
            adc_t data = {1, result};
            xQueueSend(xQueueAdc, &data, portMAX_DELAY);
